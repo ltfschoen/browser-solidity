@@ -6,6 +6,7 @@ var helper = require('../../lib/helper.js')
 var txExecution = require('../execution/txExecution')
 var txFormat = require('../execution/txFormat')
 var txHelper = require('../execution/txHelper')
+var customModal = require('../ui/modal-dialog-custom')
 const copy = require('clipboard-copy')
 
 // -------------- styling ----------------------
@@ -264,12 +265,16 @@ function contractDropdown (appAPI, appEvents, instanceContainer) {
     txFormat.buildData(contract, contracts, true, constructor, args, appAPI.udapp(), appAPI.executionContext(), (error, data) => {
       if (!error) {
         txExecution.createContract(data, appAPI.udapp(), (error, txResult) => {
-          var address = appAPI.executionContext().isVM() ? txResult.result.createdAddress : txResult.result.contractAddress
-          if (!init) {
-            instanceContainer.innerHTML = ''
-            init = true
+          if (!error) {
+            var address = appAPI.executionContext().isVM() ? txResult.result.createdAddress : txResult.result.contractAddress
+            if (!init) {
+              instanceContainer.innerHTML = ''
+              init = true
+            }
+            instanceContainer.appendChild(appAPI.udapp().renderInstance(contract, address, selectContractNames.value))
+          } else {
+            customModal.alert(error)
           }
-          instanceContainer.appendChild(appAPI.udapp().renderInstance(contract, address, selectContractNames.value))
         })
       } else {
         alert(error)
