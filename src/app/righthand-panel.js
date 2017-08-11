@@ -6,7 +6,6 @@ var runTab = require('./run-tab')
 var settingsTab = require('./settings-tab')
 var analysisTab = require('./analysis-tab')
 var debuggerTab = require('./debugger-tab')
-var filesTab = require('./files-tab')
 
 // -------------- styling ----------------------
 var csjs = require('csjs-inject')
@@ -31,7 +30,7 @@ var css = csjs`
     bottom             : 0;
     cursor             : col-resize;
     z-index            : 999;
-    border-left        : 2px solid hsla(215, 81%, 79%, .3);    
+    border-left        : 2px solid hsla(215, 81%, 79%, .3);
   }
   .ghostbar           {
     width             : 3px;
@@ -44,7 +43,7 @@ var css = csjs`
     bottom            : 0;
   }
   .panel              {
-    height            : 100%;  
+    height            : 100%;
   }
   .header             {
     height            : 100%;
@@ -67,7 +66,6 @@ function RighthandPanel (appAPI, events, opts) {
       <li class="compileView" title="Compile">Compile</li>
       <li class="runView" title="Run">Run</li>
       <li class="settingsView" title="Settings">Settings</li>
-      <li class="publishView" title="Publish" >Files</li>
       <li class="debugView" title="Debugger">Debugger</li>
       <li class="staticanalysisView" title="Static Analysis">Analysis</li>
       <li id="helpButton"><a href="https://remix.readthedocs.org" target="_blank" title="Open Documentation">Docs</a></li>
@@ -91,7 +89,6 @@ function RighthandPanel (appAPI, events, opts) {
   settingsTab(optionViews, appAPI, events, opts)
   analysisTab(optionViews, appAPI, events, opts)
   debuggerTab(optionViews, appAPI, events, opts)
-  filesTab(optionViews, appAPI, events, opts)
 
   self.render = function () { return self._view.element }
 

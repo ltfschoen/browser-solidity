@@ -327,6 +327,9 @@ function run () {
     },
     setText: function (text) {
       editor.setText(text)
+    },
+    packageFiles: (cb) => {
+      packageFiles(cb)
     }
   }
   var filePanel = new FilePanel(FilePanelAPI, filesProviders)
@@ -541,9 +544,6 @@ function run () {
     },
     executionContextProvider: () => {
       return executionContext.getProvider()
-    },
-    packageFiles: (cb) => {
-      packageFiles(cb)
     },
     getContracts: () => {
       if (compiler.lastCompilationResult && compiler.lastCompilationResult.data) {
